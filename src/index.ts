@@ -3,75 +3,12 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { SEARCH_SCRIPT, CONTENT_SCRIPT } from "./config.js";
 import { execScript } from "./utils.js";
-import { BrowserController, browserOps } from "./browser.js";
-import { BrowserOperationSchema } from "./types.js";
 
 // Create server instance
 const server = new McpServer({
   name: "google-tools",
   version: "1.0.0",
 });
-
-// Browser controller instance
-const browser = new BrowserController();
-
-/**
- * Browser Operation Tool
- * Executes AppleScript commands in Chrome browser context.
- * 
- * The script parameter is executed within:
- * tell application "Google Chrome"
- *   activate
- *   tell active tab of window 1
- *     YOUR_SCRIPT_HERE
- *   end tell
- * end tell
- * 
- * Common operations can be constructed using browserOps helpers:
- * - Navigate: browserOps.navigate("https://example.com")
- * - Get Content: browserOps.getContent()
- * - Click: browserOps.click("#some-button")
- * - Type: browserOps.type("#input", "text")
- * - Wait: browserOps.waitForElement(".element", timeout)
- * - Execute JS: browserOps.executeJs("console.log('hello')")
- * 
- * Example direct script:
- * {
- *   "script": "execute javascript \"document.title\"",
- *   "timeout": 5
- * }
- */
-server.tool(
-  "operate-browser",
-  "Execute AppleScript commands in Chrome browser context. See function description for details and examples.",
-  {
-    operation: BrowserOperationSchema,
-  },
-  async ({ operation }) => {
-    console.error(`Executing browser operation with script: ${operation.script}`);
-    try {
-      const result = await browser.executeOperation(operation);
-      return {
-        content: [
-          {
-            type: "text",
-            text: result,
-          },
-        ],
-      };
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      return {
-        content: [
-          {
-            type: "text",
-            text: `Failed to execute browser operation: ${errorMessage}`,
-          },
-        ],
-      };
-    }
-  },
-);
 
 /**
  * Google Search Tool
