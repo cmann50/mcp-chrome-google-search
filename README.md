@@ -2,6 +2,40 @@
 
 MCP tool for Google search and webpage content extraction using Chrome browser. Works with Claude to enable Google search and content fetching capabilities.
 
+## Quick Installation
+
+1. **Configure Claude Desktop**
+   - Open Claude Desktop on Mac
+   - Go to Claude > Settings > Developer > Edit Config
+   - Add the following to your config file:
+   ```json
+   {
+     "mcpServers": {
+       "mcp-chrome-google-search": {
+         "command": "npx",
+         "args": [
+           "-y",
+           "@cmann50/mcp-chrome-google-search"
+         ]
+       }
+     }
+   }
+   ```
+   - Restart Claude Desktop
+
+2. **First Time Setup**
+   - **Grant Accessibility Permissions**
+     - On first run, approve macOS accessibility permissions prompt
+     - Navigate to: System Preferences > Security & Privacy > Privacy > Accessibility
+     - Add and enable permissions for your terminal app
+
+   - **Enable Chrome JavaScript from Apple Events**
+     - Open Chrome
+     - Navigate to: View > Developer > Allow JavaScript from Apple Events
+     - One-time setup only
+
+Once configured, Claude will be able to perform Google searches and extract webpage content through Chrome when you make requests.
+
 ## Key Advantages
 
 - Runs Chrome browser via osascript/applescript, avoiding typical blocking issues
@@ -20,12 +54,12 @@ MCP tool for Google search and webpage content extraction using Chrome browser. 
 2. Google Chrome
 3. Node.js 16 or higher
 
-## Quick Start
+## Alternative Installation Methods
+
+### NPX Installation
 ```bash
 npx mcp-chrome-google-search
 ```
-
-## Installation & Configuration
 
 ### Custom Installation
 1. Checkout from git
@@ -41,18 +75,6 @@ npx mcp-chrome-google-search
     }
 }
 ```
-
-### First Time Setup
-
-1. **Grant Accessibility Permissions**
-   - On first run, approve macOS accessibility permissions prompt
-   - Navigate to: System Preferences > Security & Privacy > Privacy > Accessibility
-   - Add and enable permissions for your terminal app
-
-2. **Enable Chrome JavaScript from Apple Events**
-   - Open Chrome
-   - Navigate to: View > Developer > Allow JavaScript from Apple Events
-   - One-time setup only
 
 ## Debugging
 
