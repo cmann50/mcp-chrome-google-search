@@ -1,0 +1,31 @@
+# Source
+src/
+
+# Tests
+**/*.test.ts
+**/*.spec.ts
+coverage/
+jest.config.js
+
+# Development configs
+.eslintrc
+.prettierrc
+tsconfig.json
+.editorconfig
+.git*
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependencies
+node_modules/
+
+# Misc
+.DS_Store
+*.env
+.env.*
