@@ -56,6 +56,20 @@ If the tool can't control Chrome:
 4. Make sure your terminal app is listed and checked
 5. If needed, click the lock icon to make changes
 
+## Debbuging
+# Follow logs in real-time
+tail -n 20 -F ~/Library/Logs/Claude/mcp*.log
+
+hit ctrl-r in claude desktop while tailing for better errors
+
+you can also do 
+echo '{"allowDevTools": true}' > ~/Library/Application\ Support/Claude/developer_settings.json
+
+Open DevTools: Command-Option-Shift-i in claude desktop
+
+
+
+
 ## How It Works
 
 This tool uses AppleScript to control Chrome, allowing Claude to:
