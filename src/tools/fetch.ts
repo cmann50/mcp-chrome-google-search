@@ -5,7 +5,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 export function registerFetchTool(server: McpServer) {
   server.tool(
     "fetch-webpage-text",
-    "Extract readable text content from a given webpage URL using Chrome browser automation",
+    "Extract readable text content from any webpage URL (including private/authenticated pages) using Chrome browser automation",
     {
       url: z.string().url().describe("Full webpage URL (must include http:// or https://)"),
     },
