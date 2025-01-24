@@ -1,6 +1,6 @@
 {
   "name": "@cmann50/mcp-chrome-google-search",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "bin": "./dist/cli.js",
   "main": "dist/index.js",
