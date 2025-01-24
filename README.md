@@ -1,158 +1,81 @@
-# MCP Google Search
+# MCP Google Search Tool
 
-A Model Context Protocol (MCP) tool for performing Google searches and extracting webpage content using Chrome automation.
+MCP tool for Google search and webpage content extraction. Works with Claude to enable Google search and content fetching capabilities.
 
-## Features
+## Platform Support
+- ✅ macOS
+- ❌ Windows (not supported)
+- ❌ Linux (not supported)
 
-- 🔍 Google search with structured results
-- 📄 Webpage content extraction
-- 🚀 Fast Chrome automation
-- 🔒 Safe URL handling and validation
-- ⚡ MCP-compliant interface
+## Requirements
 
-## Prerequisites
+1. macOS
+2. Google Chrome
+3. Node.js 16 or higher
 
-- Node.js ≥ 16.0.0
-- Google Chrome browser
-- macOS (for Chrome automation scripts)
-
-## Installation
+## Quick Start
 
 ```bash
-npm install -g mcp-google-search
-# or
 npx mcp-google-search
 ```
 
-## Usage
+## First Time Setup
 
-### As an MCP Tool
+1. **Grant Accessibility Permissions**
+   - When first running the tool, macOS will prompt for accessibility permissions
+   - Go to System Preferences > Security & Privacy > Privacy > Accessibility
+   - Add Terminal (or your preferred terminal app) to the list
+   - Check the box to enable permissions
 
-The tool provides two main functions through the MCP interface:
+2. **Enable JavaScript from Apple Events in Chrome**
+   - Open Chrome
+   - From the menu bar: View > Developer > Allow JavaScript from Apple Events
+   - This setting only needs to be enabled once
 
-1. Google Search:
-```typescript
-// Search Google and get results
-{
-  name: "google-search",
-  parameters: {
-    query: "your search query"
-  }
-}
+## Troubleshooting
+
+### Chrome JavaScript Error
+If you see this error:
+```
+execution error: Google Chrome got an error: Executing JavaScript through AppleScript 
+is turned off. For more information: https://support.google.com/chrome/?p=applescript (12)
 ```
 
-2. Webpage Content:
-```typescript
-// Extract content from a webpage
-{
-  name: "get-webpage-content",
-  parameters: {
-    url: "https://example.com"
-  }
-}
-```
+Fix:
+1. Open Chrome
+2. Click View in the menu bar
+3. Select Developer
+4. Click "Allow JavaScript from Apple Events"
+5. Retry your command
 
-### Command Line Usage
+### Accessibility Permission Issues
+If the tool can't control Chrome:
+1. Open System Preferences
+2. Go to Security & Privacy > Privacy
+3. Select Accessibility from the left sidebar
+4. Make sure your terminal app is listed and checked
+5. If needed, click the lock icon to make changes
 
-```bash
-# Start the MCP server
-npx mcp-google-search
+## How It Works
 
-# The server will listen on stdin/stdout for MCP protocol messages
-```
+This tool uses AppleScript to control Chrome, allowing Claude to:
+- Perform Google searches
+- Extract content from webpages
 
-## Configuration
+The automation is visible - you'll see Chrome opening and navigating to pages. Don't block or interfere with Chrome while the tool is running.
 
-The tool can be configured through environment variables:
+## Important Notes
 
-```bash
-# Timeouts (in milliseconds)
-SEARCH_TIMEOUT=5000
-CONTENT_FETCH_TIMEOUT=10000
+- **Chrome Windows**: The tool will open and control Chrome windows. This is normal and required for operation.
+- **Performance**: Each request opens a new Chrome tab. Close unused tabs periodically for better performance.
+- **Security**: Only use this tool with trusted Claude instances as it can control your Chrome browser.
 
-# Chrome automation
-CHROME_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-```
+## Support
 
-## Development
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/mcp-google-search.git
-
-# Install dependencies
-npm install
-
-# Build the project
-npm run build
-
-# Run tests
-npm test
-
-# Start in development mode
-npm run dev
-```
-
-## API Reference
-
-### Google Search Tool
-
-Input parameters:
-- `query` (string): The search query to execute
-
-Response format:
-```typescript
-{
-  content: [
-    {
-      type: "text",
-      text: string  // Search results in text format
-    }
-  ]
-}
-```
-
-### Webpage Content Tool
-
-Input parameters:
-- `url` (string): The webpage URL to fetch
-
-Response format:
-```typescript
-{
-  content: [
-    {
-      type: "text",
-      text: string  // Extracted webpage content
-    }
-  ]
-}
-```
-
-## Error Handling
-
-The tool includes comprehensive error handling for:
-- Network issues
-- Invalid URLs
-- Chrome automation failures
-- Timeout scenarios
-
-All errors are returned in the MCP protocol's standard error format.
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+For issues or questions:
+- Create an issue on GitHub
+- Make sure to include your macOS and Chrome versions
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Built with [Model Context Protocol](https://github.com/modelcontextprotocol/mcp)
-- Uses Chrome automation for reliable web interaction
-- Inspired by the need for better AI tool integration
+MIT License - see LICENSE file for details
