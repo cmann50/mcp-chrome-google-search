@@ -2,93 +2,106 @@
 
 MCP tool for Google search and webpage content extraction. Works with Claude to enable Google search and content fetching capabilities.
 
+## Key Advantages
+
+- Runs Chrome browser via osascript/applescript, avoiding typical blocking issues
+- Can access authenticated content - Claude can read internal wikis and other logged-in content
+- Secure implementation - limited to specific Chrome operations (see `mcp-google-search/src/browser/chrome.ts`):
+  - Page text extraction using `document.body.innerText`
+  - Google search via `https://www.google.com/search?q=${encodedQuery}&hl=en`
+
 ## Platform Support
 - ✅ macOS
 - ❌ Windows (not supported)
 - ❌ Linux (not supported)
 
 ## Requirements
-
 1. macOS
 2. Google Chrome
 3. Node.js 16 or higher
 
 ## Quick Start
-
 ```bash
 npx mcp-google-search
 ```
 
-## First Time Setup
+## Installation & Configuration
+
+### Custom Installation
+1. Checkout from git
+2. Run `npm run build`
+3. Add to Claude config (use absolute path):
+```json
+{
+    "google-tools": {
+        "command": "node",
+        "args": [
+            "/your/checkout/path/mcp/mcp-google-search/dist/index.js"
+        ]
+    }
+}
+```
+
+### First Time Setup
 
 1. **Grant Accessibility Permissions**
-   - When first running the tool, macOS will prompt for accessibility permissions
-   - Go to System Preferences > Security & Privacy > Privacy > Accessibility
-   - Add Terminal (or your preferred terminal app) to the list
-   - Check the box to enable permissions
+   - On first run, approve macOS accessibility permissions prompt
+   - Navigate to: System Preferences > Security & Privacy > Privacy > Accessibility
+   - Add and enable permissions for your terminal app
 
-2. **Enable JavaScript from Apple Events in Chrome**
+2. **Enable Chrome JavaScript from Apple Events**
    - Open Chrome
-   - From the menu bar: View > Developer > Allow JavaScript from Apple Events
-   - This setting only needs to be enabled once
+   - Navigate to: View > Developer > Allow JavaScript from Apple Events
+   - One-time setup only
+
+## Debugging
+
+### Log Monitoring
+```bash
+# Follow logs in real-time
+tail -n 20 -F ~/Library/Logs/Claude/mcp*.log
+```
+
+### Dev Tools Access
+1. Enable developer settings:
+```bash
+echo '{"allowDevTools": true}' > ~/Library/Application\ Support/Claude/developer_settings.json
+```
+2. Open DevTools: Command-Option-Shift-i in Claude desktop
+3. Use ctrl-r in Claude desktop while tailing for better errors
 
 ## Troubleshooting
 
 ### Chrome JavaScript Error
-If you see this error:
+If you see:
 ```
 execution error: Google Chrome got an error: Executing JavaScript through AppleScript 
 is turned off. For more information: https://support.google.com/chrome/?p=applescript (12)
 ```
 
-Fix:
+Solution:
 1. Open Chrome
-2. Click View in the menu bar
-3. Select Developer
-4. Click "Allow JavaScript from Apple Events"
-5. Retry your command
+2. View > Developer > Allow JavaScript from Apple Events
 
 ### Accessibility Permission Issues
-If the tool can't control Chrome:
+If Chrome control fails:
 1. Open System Preferences
-2. Go to Security & Privacy > Privacy
-3. Select Accessibility from the left sidebar
-4. Make sure your terminal app is listed and checked
-5. If needed, click the lock icon to make changes
+2. Security & Privacy > Privacy > Accessibility
+3. Ensure terminal app is listed and enabled
+4. Use lock icon to make changes if needed
 
-## Debbuging
-# Follow logs in real-time
-tail -n 20 -F ~/Library/Logs/Claude/mcp*.log
+## Implementation Details
 
-hit ctrl-r in claude desktop while tailing for better errors
-
-you can also do 
-echo '{"allowDevTools": true}' > ~/Library/Application\ Support/Claude/developer_settings.json
-
-Open DevTools: Command-Option-Shift-i in claude desktop
-
-
-
-
-## How It Works
-
-This tool uses AppleScript to control Chrome, allowing Claude to:
-- Perform Google searches
-- Extract content from webpages
-
-The automation is visible - you'll see Chrome opening and navigating to pages. Don't block or interfere with Chrome while the tool is running.
-
-## Important Notes
-
-- **Chrome Windows**: The tool will open and control Chrome windows. This is normal and required for operation.
-- **Performance**: Each request opens a new Chrome tab. Close unused tabs periodically for better performance.
-- **Security**: Only use this tool with trusted Claude instances as it can control your Chrome browser.
+- Uses AppleScript for Chrome control
+- Visible automation - Chrome windows will open/navigate
+- Each request opens a new Chrome tab
+- Close unused tabs periodically for optimal performance
+- Only use with trusted Claude instances (has Chrome control access)
 
 ## Support
 
-For issues or questions:
-- Create an issue on GitHub
-- Make sure to include your macOS and Chrome versions
+- Create GitHub issues for problems
+- Include macOS and Chrome version details
 
 ## License
 
