@@ -11,15 +11,15 @@ const server = new McpServer({
 });
 
 /**
- * Google Search Tool
- * Performs a Google search and returns formatted results.
- * Uses Chrome browser automation under the hood.
+ * Web Search Tool
+ * Executes a web search using Google and returns structured results.
+ * Uses Chrome browser automation to fetch real-time results.
  */
 server.tool(
-  "google-search",
-  "Perform a Google search and return results",
+  "search-web",
+  "Execute a web search using Google and return structured results including titles, snippets, and links",
   {
-    query: z.string().min(1).describe("Search query string"),
+    query: z.string().min(1).describe("Search query text - supports standard Google search operators and syntax"),
   },
   async ({ query }) => {
     console.error(`Executing Google search for: ${query}`);
@@ -48,15 +48,15 @@ server.tool(
 );
 
 /**
- * Webpage Content Tool
- * Fetches and returns the text content from a specified URL.
- * Uses Chrome browser automation under the hood.
+ * Webpage Content Extraction Tool
+ * Fetches and extracts readable text content from webpages.
+ * Uses Chrome browser automation for reliable rendering and extraction.
  */
 server.tool(
-  "get-webpage-content",
-  "Get the text content from a specified webpage URL",
+  "fetch-webpage-text",
+  "Extract readable text content from a given webpage URL using Chrome browser automation",
   {
-    url: z.string().url().describe("URL of the webpage to fetch"),
+    url: z.string().url().describe("Full webpage URL (must include http:// or https://)"),
   },
   async ({ url }) => {
     console.error(`Fetching content from: ${url}`);
