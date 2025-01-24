@@ -2,9 +2,7 @@
   "name": "@cmann50/mcp-chrome-google-search",
   "version": "1.0.2",
   "type": "module",
-  "bin": {
-    "mcp-chrome-google-search": "./dist/cli.js"
-  },
+  "bin": "./dist/cli.js",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
