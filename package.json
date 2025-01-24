@@ -1,22 +1,49 @@
 {
   "name": "mcp-google-search",
   "version": "1.0.0",
-  "description": "MCP Google Search Tool",
-  "main": "index.js",
+  "description": "MCP Google Search Tool - Chrome-based Google search and webpage content extraction for Model Context Protocol",
+  "main": "dist/index.js",
   "type": "module",
+  "bin": {
+    "mcp-google-search": "./dist/index.js"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsc -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "prepare": "npm run build",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "prepublishOnly": "npm test && npm run lint"
   },
+  "files": [
+    "dist/**/*",
+    "chrome-search.sh",
+    "chrome-get-content.sh"
+  ],
   "keywords": [
     "mcp",
     "google",
-    "search"
+    "search",
+    "web-scraping",
+    "chrome-automation",
+    "model-context-protocol",
+    "cli"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/mcp-google-search.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/mcp-google-search/issues"
+  },
+  "homepage": "https://github.com/yourusername/mcp-google-search#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.4.0",
     "httpx": "^2.0.0",
@@ -24,10 +51,14 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.0",
     "@types/node": "^22.10.10",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",
     "eslint": "^8.56.0",
+    "jest": "^29.5.0",
+    "prettier": "^3.0.0",
+    "ts-jest": "^29.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   }
