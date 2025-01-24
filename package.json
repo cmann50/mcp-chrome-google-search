@@ -1,5 +1,5 @@
 {
-  "name": "mcp-chrome-google-search",
+  "name": "@cmann50/mcp-chrome-google-search",
   "version": "1.0.0",
   "type": "module",
   "main": "dist/index.js",
@@ -14,5 +14,27 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "typescript": "^5.0.0"
-  }
+  },
+  "types": "./dist/index.d.ts",
+  "description": "MCP tool for Google search and webpage content extraction using Chrome browser. Works with Claude to enable Google search and content fetching capabilities.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmann50/mcp-chrome-google-search.git"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude-desktop-tool",
+    "google-search",
+    "chrome",
+    "web-search",
+    "macos",
+    "browser-automation"
+  ],
+  "author": "Chris Mann",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cmann50/mcp-chrome-google-search/issues"
+  },
+  "homepage": "https://github.com/cmann50/mcp-chrome-google-search#readme"
 }
