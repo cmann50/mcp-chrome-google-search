@@ -1,5 +1,5 @@
 {
-  "name": "mcp-google-search",
+  "name": "mcp-chrome-google-search",
   "version": "1.0.0",
   "type": "module",
   "main": "dist/index.js",

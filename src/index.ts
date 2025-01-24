@@ -4,7 +4,7 @@ import { registerSearchTool } from './tools/search.js';
 import { registerFetchTool } from './tools/fetch.js';
 
 const server = new McpServer({
-  name: "google-tools",
+  name: "mcp-chrome-google-search",
   version: "1.0.0",
 });
 
@@ -14,7 +14,7 @@ registerFetchTool(server);
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("Google Tools MCP Server running on stdio");
+  console.error("MCP Chrome Google Search Server running on stdio");
 }
 
 main().catch(error => {

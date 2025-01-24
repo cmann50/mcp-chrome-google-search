@@ -1,12 +1,12 @@
-# MCP Google Search Tool
+# MCP Chrome Google Search Tool
 
-MCP tool for Google search and webpage content extraction. Works with Claude to enable Google search and content fetching capabilities.
+MCP tool for Google search and webpage content extraction using Chrome browser. Works with Claude to enable Google search and content fetching capabilities.
 
 ## Key Advantages
 
 - Runs Chrome browser via osascript/applescript, avoiding typical blocking issues
 - Can access authenticated content - Claude can read internal wikis and other logged-in content
-- Secure implementation - limited to specific Chrome operations (see `mcp-google-search/src/browser/chrome.ts`):
+- Secure implementation - limited to specific Chrome operations (see `mcp-chrome-google-search/src/browser/chrome.ts`):
   - Page text extraction using `document.body.innerText`
   - Google search via `https://www.google.com/search?q=${encodedQuery}&hl=en`
 
@@ -22,7 +22,7 @@ MCP tool for Google search and webpage content extraction. Works with Claude to 
 
 ## Quick Start
 ```bash
-npx mcp-google-search
+npx mcp-chrome-google-search
 ```
 
 ## Installation & Configuration
@@ -36,7 +36,7 @@ npx mcp-google-search
     "google-tools": {
         "command": "node",
         "args": [
-            "/your/checkout/path/mcp/mcp-google-search/dist/index.js"
+            "/your/checkout/path/mcp/mcp-chrome-google-search/dist/index.js"
         ]
     }
 }
