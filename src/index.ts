@@ -29,12 +29,13 @@ server.tool(
           },
         ],
       };
-    } catch (error) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         content: [
           {
             type: "text",
-            text: `Failed to execute search: ${error.message}`,
+            text: `Failed to execute search: ${errorMessage}`,
           },
         ],
       };
@@ -61,12 +62,13 @@ server.tool(
           },
         ],
       };
-    } catch (error) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         content: [
           {
             type: "text",
-            text: `Failed to fetch webpage content: ${error.message}`,
+            text: `Failed to fetch webpage content: ${errorMessage}`,
           },
         ],
       };

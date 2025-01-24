@@ -10,8 +10,9 @@ export async function execScript(script: string, args: string): Promise<string> 
       console.error('Script error:', stderr);
     }
     return stdout;
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Execution error:', error);
-    throw new Error(`Failed to execute script: ${error.message}`);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    throw new Error(`Failed to execute script: ${errorMessage}`);
   }
 }
