@@ -16,11 +16,10 @@ export async function googleSearch(query: string): Promise<string> {
 }
 
 export async function getPageContent(url: string): Promise<string> {
-  const encodedUrl = encodeURIComponent(url);
   const script = `
     tell application "Google Chrome"
       activate
-      open location "${encodedUrl}"
+      open location "${url}"
       delay 2
       tell active tab of window 1
         execute javascript "document.body.innerText;"
