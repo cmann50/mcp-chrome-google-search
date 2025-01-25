@@ -38,11 +38,9 @@ Once configured, Claude will be able to perform Google searches and extract webp
 
 ## Key Advantages
 
-- Runs Chrome browser via osascript/applescript, avoiding typical blocking issues
-- Can access authenticated content - Claude can read internal wikis and other logged-in content
-- Secure implementation - limited to specific Chrome operations (see `mcp-chrome-google-search/src/browser/chrome.ts`):
-  - Page text extraction using `document.body.innerText`
-  - Google search via `https://www.google.com/search?q=${encodedQuery}&hl=en`
+- Free to search google
+- Opens and small windows and uses your chrome browser, so should not get blocked
+- Since it is using your Chrome window it can access authenticated content.  Claude can just open the URL in your browser.
 
 ## Platform Support
 - ✅ macOS
@@ -52,7 +50,7 @@ Once configured, Claude will be able to perform Google searches and extract webp
 ## Requirements
 1. macOS
 2. Google Chrome
-3. Node.js 16 or higher
+3. Node.js 20 or higher
 
 ## Alternative Installation Methods
 
@@ -60,6 +58,7 @@ Once configured, Claude will be able to perform Google searches and extract webp
 ```bash
 npx mcp-chrome-google-search
 ```
+
 
 ### Custom Installation
 1. Checkout from git
@@ -75,6 +74,17 @@ npx mcp-chrome-google-search
     }
 }
 ```
+
+## Local development
+
+To test changes locally bump package.json version and run
+to put it in edit mode:
+```
+npm install -g .
+```
+Then just do `npm run build` and the files will go in dist where claude is monitoring
+
+Then press ctrl-R in claude desktop, no need to restart it
 
 ## Debugging
 
