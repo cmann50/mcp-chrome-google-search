@@ -11,8 +11,8 @@ export function registerSearchTool(server: McpServer) {
       site: z.string().optional().describe("Limit search to specific domain"),
       timeframe: z.discriminatedUnion('type', [
         z.object({
-          type: z.literal('relative'),
-          period: z.enum(['h', 'd', 'w', 'm', 'y'])
+          type: z.literal('relative').describe('Use relative as the search type'),
+          period: z.enum(['h', 'd', 'w', 'm', 'y']).describe('h=hour,d=day,w=week,m=month,y=year')
         }),
         z.object({
           type: z.literal('custom'),
