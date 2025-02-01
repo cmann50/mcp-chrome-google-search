@@ -7,7 +7,7 @@ export function registerSearchTool(server: McpServer) {
     "web-search",
     "Search webpages and get a specific page of results (each page has ~10 results). Optionally filter by site and timeframe.",
     {
-      query: z.string().min(1).describe("Search query text"),
+      query_text: z.string().min(1).describe("Search query text (Google query operators not supported)"),
       site: z.string().optional().describe("Limit search to specific domain"),
       timeframe: z.discriminatedUnion('type', [
         z.object({
@@ -24,10 +24,10 @@ export function registerSearchTool(server: McpServer) {
         "Which page of results to fetch (1-5). Each page contains ~10 results"
       )
     },
-    async ({ query, site, timeframe, pageNumber }) => {
-      console.error(`Executing Google search for: ${query} (page ${pageNumber})`);
+    async ({ query_text, site, timeframe, pageNumber }) => {
+      console.error(`Executing Google search for: ${query_text} (page ${pageNumber})`);
       try {
-        const searchParams = { query, site, timeframe };
+        const searchParams = { query: query_text, site, timeframe };
         const results = await performGoogleSearch(searchParams, pageNumber);
 
         return {
