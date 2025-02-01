@@ -16,8 +16,8 @@ export function registerSearchTool(server: McpServer) {
         }),
         z.object({
           type: z.literal('custom'),
-          startDate: z.date(),
-          endDate: z.date()
+          startDate: z.date().describe("Start date for custom time range filter"),
+          endDate: z.date().describe("End date for custom time range filter")
         })
       ]).optional().describe("Time range filter (relative: h/d/w/m/y or custom date range)"),
       pageNumber: z.number().min(1).max(5).optional().default(1).describe(
