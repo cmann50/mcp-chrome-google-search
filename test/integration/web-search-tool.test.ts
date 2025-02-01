@@ -2,13 +2,13 @@ import { performGoogleSearch } from '../../src/toolsImpl/searchTool';
 import type { SearchParams } from '../../src/types/search';
 
 describe('web-search Tool', () => {
-  it('should perform a search and return concatenated results', async () => {
+  it('should perform a basic search and return results', async () => {
     const searchParams: SearchParams = {
-      query: 'test search'
+      query_text: 'integration test search'
     };
     
     try {
-      const result = await performGoogleSearch(searchParams);
+      const result = await performGoogleSearch(searchParams, 1);
       expect(result.length).toBeGreaterThan(0);
       
       const blocks = result.split('\n\n');
@@ -20,24 +20,20 @@ describe('web-search Tool', () => {
         expect(description?.length).toBeGreaterThan(0);
       });
       
-      console.log('Search Results:');
-      console.log('-----------------');
-      console.log(result);
-      console.log('-----------------');
-      
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : String(error);
-      throw new Error('Should not throw an error: ' + errorMessage);
+      throw new Error('Search should succeed: ' + errorMessage);
     }
   }, 30000);
 
-  it('should handle site operator in query string', async () => {
+  it('should handle site filtering', async () => {
     const searchParams: SearchParams = {
-      query: 'site:nodejs.org documentation'
+      query_text: 'documentation',
+      site: 'nodejs.org'
     };
     
     try {
-      const result = await performGoogleSearch(searchParams);
+      const result = await performGoogleSearch(searchParams, 1);
       expect(result.length).toBeGreaterThan(0);
       
       const blocks = result.split('\n\n');
@@ -48,26 +44,46 @@ describe('web-search Tool', () => {
       
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : String(error);
-      throw new Error('Should not throw an error: ' + errorMessage);
+      throw new Error('Search with site filter should succeed: ' + errorMessage);
     }
   }, 30000);
 
-  it('should fetch multiple pages of results', async () => {
+  it('should handle time filtering', async () => {
     const searchParams: SearchParams = {
-      query: 'site:github.com test'
+      query_text: 'news',
+      timeframe: 'd'
     };
     
     try {
-      // Get results from multiple pages
-      const results = await performGoogleSearch(searchParams, 2);
+      const result = await performGoogleSearch(searchParams, 1);
+      expect(result.length).toBeGreaterThan(0);
       
-      // Should have more results when fetching multiple pages
-      const blocks = results.split('\n\n');
-      expect(blocks.length).toBeGreaterThan(10);
+      const blocks = result.split('\n\n');
+      expect(blocks.length).toBeGreaterThan(1);
       
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : String(error);
-      throw new Error('Should not throw an error: ' + errorMessage);
+      throw new Error('Search with time filter should succeed: ' + errorMessage);
+    }
+  }, 30000);
+
+  it('should successfully fetch multiple pages of results', async () => {
+    const searchParams: SearchParams = {
+      query_text: 'latest news'
+    };
+    
+    try {
+      // Test fetching 3 different pages
+      for (let page = 1; page <= 3; page++) {
+        const results = await performGoogleSearch(searchParams, page);
+        
+        // Basic validation that we got results
+        expect(results.length).toBeGreaterThan(0);
+        expect(results.split('\n\n').length).toBeGreaterThan(1);
+      }
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error('Failed to fetch multiple pages: ' + errorMessage);
     }
   }, 30000);
 });

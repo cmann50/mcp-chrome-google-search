@@ -33,7 +33,8 @@ Example: tbs=cdr:1,cd_min:12/1/2024,cd_max:12/31/2024
 
 ```typescript
 interface SearchParams {
-  query: string;
+  query_text: string;  // Plain text to search for (no Google operators)
+
   site?: string;          // Optional site restriction (e.g. "apple.com")
   timeframe?: {
     type: 'relative';     // For qdr: filters
@@ -46,4 +47,4 @@ interface SearchParams {
 }
 ```
 
-Note: The query parameter and date portions in custom date ranges require URL encoding.
+Note: The query_text parameter and date portions in custom date ranges require URL encoding.

@@ -1,14 +1,7 @@
 export interface SearchParams {
-  query: string;
+  query_text: string;
   site?: string;
-  timeframe?: {
-    type: 'relative';
-    period: 'h' | 'd' | 'w' | 'm' | 'y';
-  } | {
-    type: 'custom';
-    startDate: Date;
-    endDate: Date;
-  };
+  timeframe?: 'h' | 'd' | 'w' | 'm' | 'y';
 }
 
 export interface SearchResult {
