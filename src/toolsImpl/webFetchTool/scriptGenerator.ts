@@ -4,40 +4,28 @@ export function generateAppleScript(url: string): string {
       make new window with properties {bounds:{50, 50, 425, 717}}
       set newWindow to window 1
       
+      tell newWindow
+        set URL of active tab to "${url}"
+      end tell
+      
       -- Return focus to Claude
       tell application "Claude" to activate
-      
-      tell tab 1 of newWindow
-        set URL to "${url}"
-        
-        -- Wait for page to load
+
+      -- Wait for page to load
+      tell active tab of newWindow
         repeat until (loading is false)
           delay 0.1
         end repeat
-        
-        -- Extra delay for dynamic content
-        delay 1
-        
-        -- Get page content with error handling
-        try
-          set pageContent to (execute javascript "document.documentElement.outerHTML;")
-          if pageContent is missing value then
-            set pageContent to (execute javascript "document.body.innerHTML;")
-          end if
-          if pageContent is missing value then
-            error "Failed to extract page content"
-          end if
-        on error errMsg
-          close newWindow
-          error errMsg
-        end try
       end tell
       
+      -- Get page content
+      tell active tab of newWindow
+        set pageContent to (execute javascript "document.documentElement.outerHTML;")
+      end tell
+      
+      -- Close the window
       close newWindow
-      -- Return focus to Claude
-      tell application "Claude" to activate
     end tell
-    
     
     return pageContent
   `;

@@ -57,10 +57,7 @@ async function fetchSearchPage(searchParams: SearchParams, pageNumber: number): 
       tell active tab of newWindow
         set pageContent to (execute javascript "document.documentElement.outerHTML;")
       end tell
-      
-      
-
-     
+       
       -- Close the window
       close newWindow
     end tell
