@@ -39,22 +39,27 @@ async function fetchSearchPage(searchParams: SearchParams, pageNumber: number): 
       make new window with properties {bounds:{50, 50, 425, 717}}
       set newWindow to window 1
       
-
       tell newWindow
         set URL of active tab to "${searchUrl}"
       end tell
       
-      -- Add humanlike delay for page load (1000-1200ms)
-      set randomMs to (random number from 0 to 200) / 1000
-      delay (1 + randomMs)
+      -- Return focus to Claude
+      tell application "Claude" to activate
+
+      -- Wait for page to load
+      tell active tab of newWindow
+        repeat until (loading is false)
+          delay 0.1
+        end repeat
+      end tell
       
       -- Get page content
       tell active tab of newWindow
         set pageContent to (execute javascript "document.documentElement.outerHTML;")
       end tell
       
-      -- Return focus to Claude
-      tell application "Claude" to activate
+      
+
      
       -- Close the window
       close newWindow
