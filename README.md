@@ -2,6 +2,8 @@
 
 MCP tool for Google search and webpage content extraction using Chrome browser. Works with Claude to enable Google search and content fetching capabilities.
 
+<a href="https://glama.ai/mcp/servers/qomavmghwi"><img width="380" height="200" src="https://glama.ai/mcp/servers/qomavmghwi/badge" alt="Chrome Google Search MCP server" /></a>
+
 ## Quick Installation
 
 1. **Configure Claude Desktop**
